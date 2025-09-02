@@ -10,7 +10,7 @@ var current_resource_coins_property: int:
 	get:
 		return _current_resource_coins;
 	set(value):
-		_current_resource_coins = clamp(value, 0, 999999);
+		_current_resource_coins = clamp(value, 1, NumbersGlobal.MAX_INT_VALUE);
 		coins_mutated.emit(_current_resource_coins);
 
 func _initialize() -> void:
