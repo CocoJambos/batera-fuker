@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="BuildingCost" load_steps=3 format=3 uid="uid://c74nntpqtk1pg"]
+
+[ext_resource type="Script" uid="uid://cnmwc7df7m67g" path="res://scripts/buildings/building_cost.gd" id="1_24pa0"]
+
+[sub_resource type="Curve" id="Curve_24pa0"]
+_limits = [1.0, 2000.0, 0.0, 30.0]
+_data = [Vector2(0, 1), 0.0, 66.6333, 0, 1, Vector2(30, 2000), 66.6333, 0.0, 1, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_24pa0")
+cost_curve = SubResource("Curve_24pa0")
