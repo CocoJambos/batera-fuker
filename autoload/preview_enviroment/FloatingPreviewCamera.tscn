@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://c57qwst6ibl6a"]
+
+[ext_resource type="Script" uid="uid://cxuofee7pmvew" path="res://autoload/preview_enviroment/preview_camera.gd" id="1_t61md"]
+
+[node name="FloatingPreviewCamera" type="Camera3D"]
+script = ExtResource("1_t61md")
+forward_key = 87
+backward_key = 83
+left_key = 65
+right_key = 68
+lift_key = 4194325
+fall_key = 4194326
+metadata/_custom_type_script = "uid://cxuofee7pmvew"
