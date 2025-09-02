@@ -1,9 +1,19 @@
-[gd_scene format=3 uid="uid://030j5nlrthsm"]
+[gd_scene load_steps=2 format=3 uid="uid://030j5nlrthsm"]
+
+[ext_resource type="PackedScene" uid="uid://bowy4lkt615jm" path="res://scenes/player/player.tscn" id="4_1bvp3"]
 
 [node name="Main" type="Node"]
 
 [node name="World" type="Node3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="World"]
-transform = Transform3D(1, -0.00081473, -0.000441496, 0.000815098, 0.999999, 0.000848607, 0.000440817, -0.000848959, 1, 0, -0.25, 0)
+transform = Transform3D(1, -0.00081473, -0.000441496, 0.000815098, 0.999999, 0.000848607, 0.000440817, -0.000848959, 1, -0.00636005, -0.229082, -0.00643826)
 size = Vector3(30, 0.5, 30)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.39147, 0.920191, 0, -0.920191, 0.39147, 0, 4.7902, 5.20641)
+
+[node name="Player" parent="." instance=ExtResource("4_1bvp3")]
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.3097, 0)
