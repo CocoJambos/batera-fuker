@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfbb16551ncu2"]
+
+[ext_resource type="PackedScene" uid="uid://b8oiwwul0wbd2" path="res://scenes/enviroments/temp_world_settings.tscn" id="1_uk53i"]
+[ext_resource type="PackedScene" uid="uid://fnr4rnhekjrc" path="res://scenes/cameras/base_camera.tscn" id="2_ukglk"]
+
+[node name="BaseLevel" type="Node3D"]
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, -0.00081473, -0.000441496, 0.000815098, 0.999999, 0.000848607, 0.000440817, -0.000848959, 1, 0, -0.25, 0)
+size = Vector3(30, 0.5, 30)
+
+[node name="TempWorldSettings" parent="." instance=ExtResource("1_uk53i")]
+
+[node name="BaseCamera" parent="." instance=ExtResource("2_ukglk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.35985, 6.9538)
