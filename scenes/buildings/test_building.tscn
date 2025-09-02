@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4cowe4vtgn1o"]
+
+[ext_resource type="Script" uid="uid://bo7ivwjtvfiys" path="res://scripts/buildings/base_building.gd" id="1_01ywg"]
+
+[node name="TestBuilding" type="Node3D"]
+script = ExtResource("1_01ywg")
+metadata/_custom_type_script = "uid://bo7ivwjtvfiys"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]

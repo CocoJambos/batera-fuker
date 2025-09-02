@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsu2l5equ3eiy"]
+
+[ext_resource type="Script" uid="uid://b86p82q8up03f" path="res://scripts/buildings/building_placer.gd" id="1_oigv5"]
+[ext_resource type="PackedScene" uid="uid://b4cowe4vtgn1o" path="res://scenes/buildings/test_building.tscn" id="2_hr3hj"]
+[ext_resource type="Resource" uid="uid://c74nntpqtk1pg" path="res://recources/buildings/default_buildings_cost.tres" id="2_lw8nf"]
+[ext_resource type="Resource" uid="uid://cpgfev5uckvv1" path="res://recources/stats/default_coins_stat.tres" id="3_ba5c2"]
+
+[node name="BuildingPlacer" type="Node3D" node_paths=PackedStringArray("_buildings_parent_node")]
+script = ExtResource("1_oigv5")
+_buildings_parent_node = NodePath(".")
+_buildings_id_to_scene_map = Dictionary[int, PackedScene]({
+0: ExtResource("2_hr3hj")
+})
+_buildings_cost = ExtResource("2_lw8nf")
+_coins_stat = ExtResource("3_ba5c2")
+metadata/_custom_type_script = "uid://b86p82q8up03f"
