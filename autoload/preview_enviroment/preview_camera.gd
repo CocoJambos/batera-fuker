@@ -34,8 +34,8 @@ func _process(delta: float) -> void:
 	lift_input = float(lift + fall);
 	var translate_direction = global_basis * Vector3(translate_input.x, lift_input, translate_input.y);
 	position += translate_direction * translate_speed * delta;
-	rotate(Vector3.UP, rotate_input.x * rotate_speed * delta);
-	rotate_object_local(Vector3.RIGHT, rotate_input.y * rotate_speed * delta);
+	rotate(Vector3.UP, -rotate_input.x * rotate_speed * delta);
+	rotate_object_local(Vector3.RIGHT, -rotate_input.y * rotate_speed * delta);
 	
 	rotate_input = Vector2.ZERO;
 
