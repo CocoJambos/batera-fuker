@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://c57qwst6ibl6a"]
 
-[ext_resource type="Script" uid="uid://cxuofee7pmvew" path="res://autoload/preview_enviroment/preview_camera.gd" id="1_t61md"]
+[ext_resource type="Script" uid="uid://cxuofee7pmvew" path="res://addons/preview_scene_options/preview_enviroment/preview_camera.gd" id="1_t61md"]
+
 
 [node name="FloatingPreviewCamera" type="Camera3D"]
 script = ExtResource("1_t61md")

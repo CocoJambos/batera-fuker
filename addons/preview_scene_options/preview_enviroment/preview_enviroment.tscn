@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://cq8j1pdvq3m4p"]
 
-[ext_resource type="Script" uid="uid://b7ie5jceud51a" path="res://autoload/preview_enviroment/preview_enviroment.gd" id="1_jjx2f"]
+[ext_resource type="Script" uid="uid://b7ie5jceud51a" path="res://addons/preview_scene_options/preview_enviroment/preview_enviroment.gd" id="1_jjx2f"]
 [ext_resource type="PackedScene" uid="uid://b8oiwwul0wbd2" path="res://scenes/enviroments/temp_world_settings.tscn" id="2_e4bq6"]
-[ext_resource type="PackedScene" uid="uid://c57qwst6ibl6a" path="res://autoload/preview_enviroment/FloatingPreviewCamera.tscn" id="3_niev5"]
+[ext_resource type="PackedScene" uid="uid://c57qwst6ibl6a" path="res://addons/preview_scene_options/preview_enviroment/FloatingPreviewCamera.tscn" id="3_niev5"]
+
 
 [node name="PreviewEnviroment" type="Node3D" node_paths=PackedStringArray("_preview_camera")]
 script = ExtResource("1_jjx2f")

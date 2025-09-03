@@ -4,4 +4,3 @@
 
 [node name="Bootstrap" type="Node"]
 script = ExtResource("1_tp0nq")
-_disable_preview_enviroment = true
