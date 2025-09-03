@@ -1,8 +1,9 @@
-[gd_scene load_steps=20 format=4 uid="uid://bowy4lkt615jm"]
+[gd_scene load_steps=21 format=4 uid="uid://bowy4lkt615jm"]
 
 [ext_resource type="Texture2D" uid="uid://chtb1npwm8au2" path="res://art/itchio/godot_plush/godot_plush_albedo.png" id="1_8afob"]
 [ext_resource type="Script" uid="uid://bx7hk1gdia4go" path="res://scripts/character/generic_character_controller.gd" id="1_dovo2"]
 [ext_resource type="Script" uid="uid://cwie6rvddx61" path="res://scripts/player/player_direction_provider.gd" id="3_gmlin"]
+[ext_resource type="PackedScene" uid="uid://b6e6uxeemkgyi" path="res://scenes/player/interaction_ability.tscn" id="4_lvxji"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_x7p2l"]
 
@@ -1539,3 +1540,5 @@ libraries = {
 [node name="PlayerDirectionProvider" type="Node" parent="."]
 script = ExtResource("3_gmlin")
 metadata/_custom_type_script = "uid://cwie6rvddx61"
+
+[node name="InteractionAbility" parent="." instance=ExtResource("4_lvxji")]

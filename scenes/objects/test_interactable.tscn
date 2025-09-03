@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://c57s8b8p0lfmw"]
+
+[ext_resource type="PackedScene" uid="uid://dxugp31ixnayw" path="res://scenes/objects/interactable.tscn" id="1_ovnhx"]
+[ext_resource type="Script" uid="uid://cgjd1qg2fdstg" path="res://scripts/objects/test_interactable.gd" id="1_rglkx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rglkx"]
+size = Vector3(2, 1, 2)
+
+[node name="TestInteractable" type="Node3D" node_paths=PackedStringArray("interactable")]
+script = ExtResource("1_rglkx")
+interactable = NodePath("Interactable")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+
+[node name="Interactable" parent="." instance=ExtResource("1_ovnhx")]
+interaction_name = "[E] Test"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable"]
+shape = SubResource("BoxShape3D_rglkx")

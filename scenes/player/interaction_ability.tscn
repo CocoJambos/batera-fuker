@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://b6e6uxeemkgyi"]
+
+[ext_resource type="Script" uid="uid://b0ot6svhqhfqw" path="res://scripts/character/interaction_ability.gd" id="1_qtlua"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qtlua"]
+size = Vector3(3, 2, 3)
+
+[node name="InteractionAbility" type="Node3D" node_paths=PackedStringArray("label")]
+script = ExtResource("1_qtlua")
+label = NodePath("InteractionRange/Label3D")
+metadata/_custom_type_script = "uid://b0ot6svhqhfqw"
+
+[node name="InteractionRange" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionRange"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("BoxShape3D_qtlua")
+
+[node name="Label3D" type="Label3D" parent="InteractionRange"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+text = "[E]"
+font_size = 46
+
+[connection signal="area_entered" from="InteractionRange" to="." method="_on_interaction_range_area_entered"]
+[connection signal="area_exited" from="InteractionRange" to="." method="_on_interaction_range_area_exited"]
