@@ -28,10 +28,11 @@ func _process(delta: float) -> void:
 		available_interactions.sort_custom(sort_by_nearest)
 		
 		if available_interactions[0].is_interactable.call(self):
-			current_interaction.current_interactable = available_interactions[0]
+			current_interaction.interactable = available_interactions[0]
 			label.text = available_interactions[0].interaction_name
 			label.show()
 	else:
+		current_interaction.interactable = null
 		label.hide()
 
 func sort_by_nearest(a: Interactable, b: Interactable) -> bool:
