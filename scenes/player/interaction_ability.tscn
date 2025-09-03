@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b6e6uxeemkgyi"]
+[gd_scene load_steps=4 format=3 uid="uid://b6e6uxeemkgyi"]
 
 [ext_resource type="Script" uid="uid://b0ot6svhqhfqw" path="res://scripts/character/interaction_ability.gd" id="1_qtlua"]
+[ext_resource type="Resource" uid="uid://bdnxvk5qmwhfo" path="res://recources/player/current_interaction.tres" id="2_d8tum"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qtlua"]
 size = Vector3(3, 2, 3)
@@ -8,6 +9,7 @@ size = Vector3(3, 2, 3)
 [node name="InteractionAbility" type="Node3D" node_paths=PackedStringArray("label")]
 script = ExtResource("1_qtlua")
 label = NodePath("InteractionRange/Label3D")
+current_interaction = ExtResource("2_d8tum")
 metadata/_custom_type_script = "uid://b0ot6svhqhfqw"
 
 [node name="InteractionRange" type="Area3D" parent="."]

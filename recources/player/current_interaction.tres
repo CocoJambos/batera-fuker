@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="CurrentInteraction" load_steps=2 format=3 uid="uid://bdnxvk5qmwhfo"]
+
+[ext_resource type="Script" path="res://scripts/player/current_interaction.gd" id="1_dosg6"]
+
+[resource]
+script = ExtResource("1_dosg6")
+metadata/_custom_type_script = "uid://duwruodat526m"
