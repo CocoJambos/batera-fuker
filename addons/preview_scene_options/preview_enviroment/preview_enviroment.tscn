@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cq8j1pdvq3m4p"]
+[gd_scene load_steps=9 format=3 uid="uid://cq8j1pdvq3m4p"]
 
 [ext_resource type="Script" uid="uid://b7ie5jceud51a" path="res://addons/preview_scene_options/preview_enviroment/preview_enviroment.gd" id="1_jjx2f"]
 [ext_resource type="PackedScene" uid="uid://b8oiwwul0wbd2" path="res://scenes/enviroments/temp_world_settings.tscn" id="2_e4bq6"]
@@ -13,6 +13,12 @@ rim = 0.54
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ouenr"]
 size = Vector3(30, 1, 30)
+
+[sub_resource type="BoxMesh" id="BoxMesh_yijly"]
+size = Vector3(3, 3, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yijly"]
+size = Vector3(3, 3, 1)
 
 [node name="PreviewEnviroment" type="Node3D" node_paths=PackedStringArray("_preview_camera")]
 script = ExtResource("1_jjx2f")
@@ -32,7 +38,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.823662, 0)
 size = Vector3(30, 1, 30)
 material = SubResource("StandardMaterial3D_ouenr")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+[node name="FloorCollider" type="StaticBody3D" parent="Floor"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/FloorCollider"]
 shape = SubResource("BoxShape3D_ouenr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.99157, 0.506939, -2.20305)
+collision_layer = 3221225472
+collision_mask = 3221225473
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_yijly")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_yijly")

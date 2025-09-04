@@ -7,6 +7,7 @@ class_name BuildingPlacer;
 @export var _coins_stat: ResourceCoinsStat;
 @export var _test_id: int = 0;
 @export var _game_state: GameState;
+@export_flags_3d_physics var _ray
 
 var _building_instances: Dictionary[int, BaseBuilding];
 var _current_selected_building: BaseBuilding = null;
@@ -14,6 +15,7 @@ var _spawned_buildings: Array[BaseBuilding] = [];
 var _mouse_position: Vector2;
 var _draw_3d: Draw3D;
 var _draw_tick: int = 0;
+var _last_hit_position: Vector3;
 
 func _ready() -> void:
 	assert(_coins_stat != null, "Coins stat resource must be provided");
@@ -23,6 +25,7 @@ func _ready() -> void:
 	set_physics_process(false);
 	_coins_stat._initialize(); # TODO: initialize coins stat in game manager/world
 	__preload_buildings();
+	_coins_stat.coins_mutated.connect(func(coins: int): print("Coins Ammount: " + str(coins)));
 	await _game_state.initialize;
 	set_physics_process(true);
 	
@@ -43,7 +46,10 @@ func _physics_process(delta: float) -> void:
 	if raycast_result.has("position"):
 		var hit_position: Vector3 = raycast_result.get("position") as Vector3;
 		_draw_3d.draw_points([hit_position], Color.BLUE);
-		_current_selected_building._override_position(hit_position);
+		
+		if _last_hit_position != hit_position:
+			_current_selected_building._override_position(hit_position);
+			_last_hit_position = hit_position;
 	
 	_draw_tick += 1;
 	
@@ -57,6 +63,10 @@ func _input(event: InputEvent) -> void:
 		match key_event.keycode:
 			KEY_SPACE:
 				select_building(_test_id);
+			KEY_F3:
+				unselect_building();
+			KEY_F4:
+				place_selected_building();
 				
 	if event is InputEventMouse:
 		var mouse_event: InputEventMouse = event as InputEventMouse;
@@ -79,13 +89,24 @@ func select_building(building_id: int) -> void:
 	
 	# TODO center building to mouse pos;
 	add_child(_current_selected_building);
-	pass;
 	
 func unselect_building() -> void:
-	pass;
+	if _current_selected_building == null:
+		return;
+		
+	remove_child(_current_selected_building);
+	_current_selected_building.queue_free();
+	_current_selected_building = null;
 	
 func place_selected_building() -> void:
-	pass;
+	if _current_selected_building == null || await _current_selected_building._build() == false:
+		return;
+	
+	_coins_stat.current_resource_coins_property -= _buildings_cost.get_cost(_spawned_buildings.size() + 1);
+	remove_child(_current_selected_building);
+	_buildings_parent_node.add_child(_current_selected_building);
+	_spawned_buildings.append(_current_selected_building);
+	_current_selected_building = null;
 
 func __preload_buildings() -> void:
 	assert(!_buildings_id_to_scene_map.is_empty(), "Buildings ID map to scenes is empty, should be preset at least one building");

@@ -4,5 +4,5 @@
 
 [resource]
 script = ExtResource("1_waoig")
-_default_resource_coins = 0
+_default_resource_coins = 30000
 metadata/_custom_type_script = "uid://but4vr0wun0rc"
