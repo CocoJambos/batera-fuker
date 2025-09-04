@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://cxuofee7pmvew" path="res://addons/preview_scene_options/preview_enviroment/preview_camera.gd" id="1_t61md"]
 
-
 [node name="FloatingPreviewCamera" type="Camera3D"]
 script = ExtResource("1_t61md")
 forward_key = 87

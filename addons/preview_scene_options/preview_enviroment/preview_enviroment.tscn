@@ -1,18 +1,38 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq8j1pdvq3m4p"]
+[gd_scene load_steps=7 format=3 uid="uid://cq8j1pdvq3m4p"]
 
 [ext_resource type="Script" uid="uid://b7ie5jceud51a" path="res://addons/preview_scene_options/preview_enviroment/preview_enviroment.gd" id="1_jjx2f"]
 [ext_resource type="PackedScene" uid="uid://b8oiwwul0wbd2" path="res://scenes/enviroments/temp_world_settings.tscn" id="2_e4bq6"]
+[ext_resource type="Resource" uid="uid://b6rww3mio3eoj" path="res://recources/game/main_game_state.tres" id="2_yijly"]
 [ext_resource type="PackedScene" uid="uid://c57qwst6ibl6a" path="res://addons/preview_scene_options/preview_enviroment/FloatingPreviewCamera.tscn" id="3_niev5"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ouenr"]
+albedo_color = Color(0.717744, 0.0413923, 0.512072, 1)
+metallic = 1.0
+rim_enabled = true
+rim = 0.54
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ouenr"]
+size = Vector3(30, 1, 30)
 
 [node name="PreviewEnviroment" type="Node3D" node_paths=PackedStringArray("_preview_camera")]
 script = ExtResource("1_jjx2f")
 _preview_camera = NodePath("FloatingPreviewCamera")
+_game_state = ExtResource("2_yijly")
 
 [node name="TempWorldSettings" parent="." instance=ExtResource("2_e4bq6")]
 
 [node name="FloatingPreviewCamera" parent="." instance=ExtResource("3_niev5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.9437)
+transform = Transform3D(1, 0, 0, 0, 0.772102, 0.635499, 0, -0.635499, 0.772102, 0, 2.53268, 3.11303)
 current = true
 translate_speed = 1.0
 rotate_speed = 1.0
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.823662, 0)
+size = Vector3(30, 1, 30)
+material = SubResource("StandardMaterial3D_ouenr")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor/StaticBody3D"]
+shape = SubResource("BoxShape3D_ouenr")

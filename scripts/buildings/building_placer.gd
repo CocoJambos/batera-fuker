@@ -6,23 +6,61 @@ class_name BuildingPlacer;
 @export var _buildings_cost: BuildingCost;
 @export var _coins_stat: ResourceCoinsStat;
 @export var _test_id: int = 0;
+@export var _game_state: GameState;
 
 var _building_instances: Dictionary[int, BaseBuilding];
 var _current_selected_building: BaseBuilding = null;
 var _spawned_buildings: Array[BaseBuilding] = [];
+var _mouse_position: Vector2;
+var _draw_3d: Draw3D;
+var _draw_tick: int = 0;
 
 func _ready() -> void:
 	assert(_coins_stat != null, "Coins stat resource must be provided");
+	_draw_3d = Draw3D.new();
+	add_child(_draw_3d);
 	
+	set_physics_process(false);
 	_coins_stat._initialize(); # TODO: initialize coins stat in game manager/world
 	__preload_buildings();
+	await _game_state.initialize;
+	set_physics_process(true);
+	
+func _physics_process(delta: float) -> void:
+	if _current_selected_building == null:
+		return;
+	
+	var camera: Camera3D  = _game_state.current_camera;
+	var ray_beginning: Vector3 = camera.project_ray_origin(_mouse_position);
+	var ray_ending: Vector3 = camera.project_ray_normal(_mouse_position) * 1000.0;
+	
+	_draw_3d.draw_line([_draw_3d.basis.inverse() * ray_beginning, _draw_3d.basis.inverse() * ray_ending], Color.GREEN);
+	
+	var physics_space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state;
+	var raycast_query = PhysicsRayQueryParameters3D.create(ray_beginning, ray_ending);
+	var raycast_result = physics_space_state.intersect_ray(raycast_query);
+	
+	if raycast_result.has("position"):
+		var hit_position: Vector3 = raycast_result.get("position") as Vector3;
+		_draw_3d.draw_points([hit_position], Color.BLUE);
+		_current_selected_building._override_position(hit_position);
+	
+	_draw_tick += 1;
+	
+	if _draw_tick % 2:
+		_draw_3d.clear();
 
 # TODO: remove _unhandled... selecting should be preformed via UI
-func _unhandled_key_input(event: InputEvent) -> void:
-	var key_event: InputEventKey = event as InputEventKey;
-	
-	if key_event.keycode == KEY_SPACE && key_event.is_pressed():
-		select_building(_test_id);
+func _input(event: InputEvent) -> void:
+	if event is InputEventKey:
+		var key_event: InputEventKey = event as InputEventKey;
+		match key_event.keycode:
+			KEY_SPACE:
+				select_building(_test_id);
+				
+	if event is InputEventMouse:
+		var mouse_event: InputEventMouse = event as InputEventMouse;
+		_mouse_position = mouse_event.position;
 
 func select_building(building_id: int) -> void:
 	assert(_buildings_cost != null, "Building costs resource must be provided");

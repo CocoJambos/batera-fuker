@@ -1,9 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4cowe4vtgn1o"]
+[gd_scene load_steps=4 format=3 uid="uid://b4cowe4vtgn1o"]
 
 [ext_resource type="Script" uid="uid://bo7ivwjtvfiys" path="res://scripts/buildings/base_building.gd" id="1_01ywg"]
+[ext_resource type="Script" uid="uid://c357pp35jsyr6" path="res://scripts/buildings/simple_building_placement.gd" id="2_5ceut"]
 
-[node name="TestBuilding" type="Node3D"]
+[sub_resource type="InputEventAction" id="InputEventAction_5ceut"]
+
+[node name="TestBuilding" type="Node3D" node_paths=PackedStringArray("_placement")]
 script = ExtResource("1_01ywg")
+_placement = NodePath("SimpleBuildingPlacement")
 metadata/_custom_type_script = "uid://bo7ivwjtvfiys"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
+
+[node name="SimpleBuildingPlacement" type="Node3D" parent="." node_paths=PackedStringArray("_pivot", "_height_edge", "_building_root")]
+script = ExtResource("2_5ceut")
+_pivot = NodePath("Pivot")
+_height_edge = NodePath("Edge")
+_lerp_time = 0.1
+test = SubResource("InputEventAction_5ceut")
+_building_root = NodePath("..")
+metadata/_custom_type_script = "uid://c357pp35jsyr6"
+
+[node name="Pivot" type="Marker3D" parent="SimpleBuildingPlacement"]
+
+[node name="Edge" type="Marker3D" parent="SimpleBuildingPlacement"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.504481, 0)

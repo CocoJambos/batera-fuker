@@ -2,12 +2,16 @@ extends Node3D;
 class_name PreviewEnviroment;
 
 @export var _preview_camera: Camera3D;
+@export var _game_state: GameState;
 
 var _camera_to_restore: Camera3D;
 
 func _ready() -> void:
 	set_enabled(true);
 	use_preview_camera();
+	_game_state.with_current_camera(_preview_camera);
+	await get_tree().create_timer(0.1).timeout;
+	_game_state.build();
 			
 func set_enabled(enabled: bool) -> void:
 	visible = enabled;
