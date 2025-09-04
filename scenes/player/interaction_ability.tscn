@@ -6,10 +6,10 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_qtlua"]
 size = Vector3(3, 2, 3)
 
-[node name="InteractionAbility" type="Node3D" node_paths=PackedStringArray("label")]
+[node name="InteractionAbility" type="Node3D" node_paths=PackedStringArray("detectionArea")]
 script = ExtResource("1_qtlua")
-label = NodePath("InteractionRange/Label3D")
 current_interaction = ExtResource("2_d8tum")
+detectionArea = NodePath("InteractionRange")
 metadata/_custom_type_script = "uid://b0ot6svhqhfqw"
 
 [node name="InteractionRange" type="Area3D" parent="."]
@@ -24,6 +24,3 @@ shape = SubResource("BoxShape3D_qtlua")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 text = "[E]"
 font_size = 46
-
-[connection signal="area_entered" from="InteractionRange" to="." method="_on_interaction_range_area_entered"]
-[connection signal="area_exited" from="InteractionRange" to="." method="_on_interaction_range_area_exited"]
