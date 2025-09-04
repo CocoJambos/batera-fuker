@@ -1,0 +1,81 @@
+[gd_scene load_steps=11 format=3 uid="uid://b4cowe4vtgn1o"]
+
+[ext_resource type="Script" uid="uid://bo7ivwjtvfiys" path="res://scripts/buildings/base_building.gd" id="1_01ywg"]
+[ext_resource type="Script" uid="uid://c357pp35jsyr6" path="res://scripts/buildings/simple_building_placement.gd" id="2_5ceut"]
+[ext_resource type="Script" uid="uid://vy33and0n1k1" path="res://scripts/buildings/material_based_check.gd" id="3_4ie2m"]
+[ext_resource type="Script" uid="uid://bmdpuh6qy0pqu" path="res://scripts/buildings/build_effects/material_reset_effect.gd" id="4_s7j7y"]
+[ext_resource type="Script" uid="uid://dhql0a6gu0ocm" path="res://scripts/buildings/build_effects/nodes_enabler_effect.gd" id="5_nnmqk"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4ie2m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_5ceut"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s6apu"]
+transparency = 1
+blend_mode = 4
+albedo_color = Color(6.257e-07, 0.565538, 0.242642, 0.419608)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4ie2m"]
+transparency = 1
+blend_mode = 4
+albedo_color = Color(0.858824, 0.0823529, 0.286275, 0.67451)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s6apu"]
+
+[node name="TestBuilding" type="Node3D" node_paths=PackedStringArray("_placement", "_placement_check_consumer", "_build_effects")]
+script = ExtResource("1_01ywg")
+_placement = NodePath("SimpleBuildingPlacement")
+_placement_check_consumer = NodePath("MaterialBasedCheck")
+_build_effects = [NodePath("BuildEffects/MaterialResetEffect"), NodePath("BuildEffects/NodesDisableEffect"), NodePath("BuildEffects/NodesEnableEffect")]
+metadata/_custom_type_script = "uid://bo7ivwjtvfiys"
+
+[node name="SimpleBuildingPlacement" type="Node3D" parent="." node_paths=PackedStringArray("_pivot", "_height_edge", "_building_root")]
+script = ExtResource("2_5ceut")
+_pivot = NodePath("Pivot")
+_height_edge = NodePath("Edge")
+_lerp_time = 0.1
+_cast_shape = SubResource("BoxShape3D_4ie2m")
+_collision_mask = 3221225472
+_building_root = NodePath("..")
+metadata/_custom_type_script = "uid://c357pp35jsyr6"
+
+[node name="Pivot" type="Marker3D" parent="SimpleBuildingPlacement"]
+
+[node name="Edge" type="Marker3D" parent="SimpleBuildingPlacement"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.504481, 0)
+
+[node name="Visuals" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_5ceut")
+
+[node name="MaterialBasedCheck" type="Node" parent="." node_paths=PackedStringArray("_target_mesh")]
+script = ExtResource("3_4ie2m")
+_target_mesh = NodePath("../Visuals")
+_good_material = SubResource("StandardMaterial3D_s6apu")
+_bad_material = SubResource("StandardMaterial3D_4ie2m")
+metadata/_custom_type_script = "uid://vy33and0n1k1"
+
+[node name="Collision" type="StaticBody3D" parent="."]
+collision_layer = 3221225473
+collision_mask = 3221225473
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
+shape = SubResource("BoxShape3D_s6apu")
+disabled = true
+
+[node name="BuildEffects" type="Node" parent="."]
+
+[node name="MaterialResetEffect" type="Node" parent="BuildEffects" node_paths=PackedStringArray("_target_mesh")]
+script = ExtResource("4_s7j7y")
+_target_mesh = NodePath("../../Visuals")
+metadata/_custom_type_script = "uid://bmdpuh6qy0pqu"
+
+[node name="NodesDisableEffect" type="Node" parent="BuildEffects" node_paths=PackedStringArray("_nodes_to_disable")]
+script = ExtResource("5_nnmqk")
+_nodes_to_disable = [NodePath("../../SimpleBuildingPlacement"), NodePath("../../MaterialBasedCheck")]
+metadata/_custom_type_script = "uid://dhql0a6gu0ocm"
+
+[node name="NodesEnableEffect" type="Node" parent="BuildEffects" node_paths=PackedStringArray("_nodes_to_disable")]
+script = ExtResource("5_nnmqk")
+_nodes_to_disable = [NodePath("../../Collision/CollisionShape3D")]
+_enable = true
+metadata/_custom_type_script = "uid://dhql0a6gu0ocm"

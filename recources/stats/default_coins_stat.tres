@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="ResourceCoinsStat" load_steps=2 format=3 uid="uid://cpgfev5uckvv1"]
+
+[ext_resource type="Script" uid="uid://but4vr0wun0rc" path="res://scripts/stats/resource_coins_stat.gd" id="1_waoig"]
+
+[resource]
+script = ExtResource("1_waoig")
+_default_resource_coins = 30000
+metadata/_custom_type_script = "uid://but4vr0wun0rc"
