@@ -39,7 +39,7 @@ func _process(delta: float) -> void:
 	
 	rotate_input = Vector2.ZERO;
 
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion && Input.is_mouse_button_pressed(MOUSE_BUTTON_RIGHT):
 		var mouse_motion = event as InputEventMouseMotion;
 		rotate_input = mouse_motion.relative;
